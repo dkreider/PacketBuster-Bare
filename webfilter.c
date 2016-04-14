@@ -1,3 +1,11 @@
+/***********
+ Daniel Kreider 04-13-16
+ 
+ Simple WinDivert pass-through. All it does is receives the packet and re-injects.
+ 
+ **********/
+ 
+
 #include <winsock2.h>
 #include <windows.h>
 #include <stdio.h>
@@ -14,19 +22,6 @@ int __cdecl main()
     WINDIVERT_ADDRESS addr;
     UINT8 packet[MAXBUF];
     UINT packet_len;
-    PWINDIVERT_IPHDR ip_header;
-    PWINDIVERT_TCPHDR tcp_header;
-    PVOID payload;
-    UINT payload_len;
-    PACKET reset0;
-    PPACKET reset = &reset0;
-    PACKET finish0;
-    PPACKET finish = &finish0;
-    PDATAPACKET blockpage;
-    UINT16 blockpage_len;
-    PBLACKLIST blacklist;
-    unsigned i;
-    INT16 priority = 404;       // Arbitrary.
 
     // Open the Divert device:
     handle = WinDivertOpen(
@@ -66,4 +61,3 @@ int __cdecl main()
         }
     
 }
-
