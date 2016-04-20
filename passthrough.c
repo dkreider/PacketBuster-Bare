@@ -16,7 +16,7 @@
 #define MAXBUF 0xFFFF
 #define MAXURL 4096
 
-int __cdecl main()
+int main()
 {
     HANDLE handle;
     WINDIVERT_ADDRESS addr;
@@ -41,6 +41,7 @@ int __cdecl main()
     // Main loop:
     while (TRUE)
     {
+    	        // Receive packet
 		if (!WinDivertRecv(handle, packet, sizeof(packet), &addr, &packet_len))
 		{
 			fprintf(stderr, "warning: failed to read packet (%d)\n",
@@ -50,7 +51,8 @@ int __cdecl main()
 		else
 			printf("Read a packet\n");
 
-            // Packet does not match the blacklist; simply reinject it.
+
+                // Re-inject packet
 		if (!WinDivertSend(handle, packet, packet_len, &addr, NULL))
 		{
 			fprintf(stderr, "warning: failed to reinject packet (%d)\n",
